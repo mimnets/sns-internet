@@ -1,32 +1,28 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
 
-const Login = () => {
+const Signup = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { signIn } = useContext(AuthContext);
-    const [loginError, setLoginError] = useState('')
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    const from = location.state?.from?.pathname || '/';
+    const { createUser } = useContext(AuthContext);
+    const [signUpError, setSignUpError] = useState('');
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
 
 
-    const handleLogin = (data) => {
+    const handleSignup = (data) => {
         // console.log(data);
-        signIn(data.email, data.password)
+        createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
                 // console.log(user);
-                if (user?.uid) {
-                    navigate(from, { replace: true });
-                }
+                toast("User created successfully!")
             })
             .catch(error => {
                 // console.error(error);
-                setLoginError(error.message);
+                setSignUpError(error.message)
             })
     }
 
@@ -36,7 +32,13 @@ const Login = () => {
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <div className="card-body">
-                        <form onSubmit={handleSubmit(handleLogin)}>
+                        <form onSubmit={handleSubmit(handleSignup)}>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Name</span>
+                                </label>
+                                <input type="text" {...register("name")} placeholder="name" className="input input-bordered" />
+                            </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
@@ -48,18 +50,16 @@ const Login = () => {
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" {...register("password", { required: "Email address is required." })} placeholder="password" className="input input-bordered" />
+                                <input type="password" {...register("password", { required: "Password is required." })} placeholder="password" className="input input-bordered" />
                                 {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                                 <label className="label">
-                                    <Link to='/signup' className="label-text-alt link link-hover"> Not Registered, Please Sign Up</Link>
+                                    <Link to='/login' className="label-text-alt link link-hover">Already Registered, Please Login</Link>
                                 </label>
                             </div>
                             <div className="form-control mt-6">
-                                <button className="btn btn-primary">Login</button>
+                                <button className="btn btn-primary">Sign Up</button>
                             </div>
-                            <div>
-                                {loginError && <p>{loginError}</p>}
-                            </div>
+                            {signUpError && <p>{signUpError}</p>}
                         </form>
                     </div>
                 </div>
@@ -68,4 +68,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Signup;
