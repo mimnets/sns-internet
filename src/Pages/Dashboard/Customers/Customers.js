@@ -29,6 +29,16 @@ const Customers = () => {
         }
         
         console.log(customer);
+        // Save Customers information to database
+        fetch('http://localhost:5000/customers',{
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(customer)
+        })
+        .then(res => res.json())
+        .then(result =>{
+            console.log(result);
+        })
     }
 
     return (
