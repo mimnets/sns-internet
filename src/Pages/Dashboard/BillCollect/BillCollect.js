@@ -3,12 +3,10 @@ import { useQuery } from 'react-query';
 
 const BillCollect = () => {
 
-    const url = fetch('http://localhost:5000/bills')
-
-    const { data: bills = [] } = useQuery({
+     const { data: bills } = useQuery({
         queryKey: 'bills',
         queryFn: async () => {
-            const res = await fetch(url)
+            const res = await fetch("http://localhost:5000/bills")
             const data = await res.json();
             return data;
         },
@@ -19,7 +17,7 @@ const BillCollect = () => {
             <table className="table table-compact w-full">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>SL</th>
                         <th>IP</th>
                         <th>Money Receipt No.</th>
                         <th>Received Amount</th>

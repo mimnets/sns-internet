@@ -24,7 +24,7 @@ const DashboardLayout = () => {
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 bg-base-100 text-base-content">
                          {/* Sidebar content here */}
-                        <li><Link to='/dashboard/customers'>Customers</Link></li>
+                        <li><Link to='/dashboard'>Customers</Link></li>
                         <li><Link to='/dashboard/add-customer'>Add Customer</Link></li>
                         <li><Link to='/dashboard/bill-collect'>Bill Collect</Link></li>
                         <li><Link to='/dashboard/add-bills'>Add Bills</Link></li>

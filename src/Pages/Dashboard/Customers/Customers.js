@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 
 const Customers = () => {
 
-    const { data: customers = [] } = useQuery({
+    const { data: customers } = useQuery({
         queryKey: 'customers',
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/customers');
@@ -18,7 +18,7 @@ const Customers = () => {
                 {/* -- head -- */}
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>SL</th>
                         <th>Name</th>
                         <th>IP</th>
                         <th>Mobile</th>

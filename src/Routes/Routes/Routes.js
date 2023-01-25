@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
         element: <DashboardLayout></DashboardLayout>,
         children:[
             {
-                path: '/dashboard/customers',
+                path: '/dashboard',
                 element: <Customers></Customers>,
             },
             {
