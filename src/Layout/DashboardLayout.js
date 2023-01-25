@@ -7,6 +7,7 @@ import Navbar from '../Pages/Shared/Navbar/Navbar';
 
 const DashboardLayout = () => {
     const { user, loading } = useContext(AuthContext);
+    // console.log(user)
 
     return (
         <div>
@@ -15,7 +16,7 @@ const DashboardLayout = () => {
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col">
                      {/* Page content here  */}
-                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Dash Menu</label>
                     <Outlet></Outlet>
 
                 </div>
@@ -26,6 +27,7 @@ const DashboardLayout = () => {
                         <li><Link to='/dashboard/customers'>Customers</Link></li>
                         <li><Link to='/dashboard/add-customer'>Add Customer</Link></li>
                         <li><Link to='/dashboard/bill-collect'>Bill Collect</Link></li>
+                        <li><Link to='/dashboard/add-bills'>Add Bills</Link></li>
                     </ul>
 
                 </div>

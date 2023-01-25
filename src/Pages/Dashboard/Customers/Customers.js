@@ -2,14 +2,11 @@ import React from 'react';
 import { useQuery } from 'react-query';
 
 const Customers = () => {
-    const url = 'http://localhost:5000/customers';
 
     const { data: customers = [] } = useQuery({
         queryKey: 'customers',
         queryFn: async () => {
-            const res = await fetch(url, {
-
-            })
+            const res = await fetch('http://localhost:5000/customers');
             const data = await res.json();
             return data;
         },
@@ -23,6 +20,7 @@ const Customers = () => {
                     <tr>
                         <th></th>
                         <th>Name</th>
+                        <th>IP</th>
                         <th>Mobile</th>
                         <th>Address</th>
                         <th>Bandwidth / MB</th>
@@ -37,6 +35,7 @@ const Customers = () => {
                             <tr>
                                 <th>{i}</th>
                                 <td>{customer.name}</td>
+                                <td>{customer.ip}</td>
                                 <td>{customer.mobile}</td>
                                 <td>{customer.address}</td>
                                 <td>{customer.mb}</td>

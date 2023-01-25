@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../../Layout/DashboardLayout";
 import Main from "../../Layout/Main";
+import AddCollectedBills from "../../Pages/Dashboard/AddCollectedBills/AddCollectedBills";
 import AddCustomer from "../../Pages/Dashboard/AddCustomer/AddCustomer";
 import BillCollect from "../../Pages/Dashboard/BillCollect/BillCollect";
 import Customers from "../../Pages/Dashboard/Customers/Customers";
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/add-customer',
                 element: <AddCustomer></AddCustomer>
+            },
+            {
+                path: '/dashboard/add-bills',
+                element: <AddCollectedBills></AddCollectedBills>
             },
             {
                 path: '/dashboard/bill-collect',

@@ -1,9 +1,10 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router';
 
 const AddCustomer = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
 
     // const url = "http://localhost:3000/customers";
     // const { data: customers = [] } = useQuery({
@@ -21,6 +22,7 @@ const AddCustomer = () => {
     const handleAddCustomers = data =>{
         const customer = {
             name: data.name,
+            ip: data.ip,
             mobile: data.mobile,
             address: data.address,
             mb: data.mb,
@@ -28,7 +30,7 @@ const AddCustomer = () => {
             connection_date: data.connection_date
         }
         
-        console.log(customer);
+        // console.log(customer);
         // Save Customers information to database
         fetch('http://localhost:5000/customers',{
             method: 'POST',
@@ -37,18 +39,25 @@ const AddCustomer = () => {
         })
         .then(res => res.json())
         .then(result =>{
-            console.log(result);
+            // console.log(result);
+            navigate('/dashboard/customers');
         })
     }
 
     return (
-        <div className='mt-10'>
+        <div className='mt-10 p-5'>
             <h3 className="text-4xl">Add A Customer</h3>
                 <form onSubmit={handleSubmit(handleAddCustomers)}>
                     <div className="form-control w-full max-w-xs">
                         <label className="label"><span className="label-text">Name</span></label>
                         <input type="text"
                             {...register("name")}
+                            className="input input-bordered w-full max-w-xs" />
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label"><span className="label-text">IP</span></label>
+                        <input type="number"
+                            {...register("ip")}
                             className="input input-bordered w-full max-w-xs" />
                     </div>
                     <div className="form-control w-full max-w-xs">
@@ -101,7 +110,9 @@ const AddCustomer = () => {
                             {...register("image")}
                             className="input input-bordered w-full max-w-xs" />
                     </div> */}
-                    <input className='btn btn-accent w-full mt-4' value="Add Customer" type="submit" />
+                    <div className="form-control w-full max-w-xs">
+                    <input className='btn btn-accent mt-4' value="Add Customer" type="submit" />
+                    </div>
                 </form>
         </div>
     );
