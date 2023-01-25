@@ -13,7 +13,7 @@ const DashboardLayout = () => {
             <Navbar></Navbar>
             <div className="drawer drawer-mobile">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content flex flex-col items-center justify-center">
+                <div className="drawer-content flex flex-col">
                      {/* Page content here  */}
                     <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
                     <Outlet></Outlet>
@@ -24,6 +24,7 @@ const DashboardLayout = () => {
                     <ul className="menu p-4 w-80 bg-base-100 text-base-content">
                          {/* Sidebar content here */}
                         <li><Link to='/dashboard/customers'>Customers</Link></li>
+                        <li><Link to='/dashboard/add-customer'>Add Customer</Link></li>
                         <li><Link to='/dashboard/bill-collect'>Bill Collect</Link></li>
                     </ul>
 
