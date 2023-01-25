@@ -1,8 +1,19 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
 import { useQuery } from 'react-query';
 
 const Customers = () => {
+    const url = 'http://localhost:5000/customers';
+
+    const { data: customers = [] } = useQuery({
+        queryKey: 'customers',
+        queryFn: async () => {
+            const res = await fetch(url, {
+
+            })
+            const data = await res.json();
+            return data;
+        },
+    })
 
     return (
         <div className="overflow-x-auto">
@@ -12,18 +23,28 @@ const Customers = () => {
                     <tr>
                         <th></th>
                         <th>Name</th>
-                        <th>Job</th>
-                        <th>Favorite Color</th>
+                        <th>Mobile</th>
+                        <th>Address</th>
+                        <th>Bandwidth / MB</th>
+                        <th>Price</th>
+                        <th>Connection Date</th>
                     </tr>
                 </thead>
                 <tbody>
                     {/* -- row 1 -- */}
-                    <tr>
-                        <th>1</th>
-                        <td>Cy Ganderton</td>
-                        <td>Quality Control Specialist</td>
-                        <td>Blue</td>
-                    </tr>
+                    {
+                        customers?.map((customer, i) =>
+                            <tr>
+                                <th>{i}</th>
+                                <td>{customer.name}</td>
+                                <td>{customer.mobile}</td>
+                                <td>{customer.address}</td>
+                                <td>{customer.mb}</td>
+                                <td>{customer.price}</td>
+                                <td>{customer.connection_date}</td>
+                            </tr>
+                        )
+                    }
                 </tbody>
             </table>
         </div>
