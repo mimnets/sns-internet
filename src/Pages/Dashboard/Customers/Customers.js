@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
+import CustomerUpdateModal from '../Modal/CustomerUpdateModal/CustomerUpdateModal';
 
 const Customers = () => {
+    const [updateCustomerModal, setUpdateCustomerModal] = useState(null);
+
+    const closeModal = () => {
+        setUpdateCustomerModal(null);
+    }
 
     const { data: customers } = useQuery({
         queryKey: 'customers',
@@ -18,7 +24,7 @@ const Customers = () => {
                 {/* -- head -- */}
                 <thead>
                     <tr>
-                        <th>SL</th>
+                        <th>SL#</th>
                         <th>Name</th>
                         <th>IP</th>
                         <th>Mobile</th>
@@ -26,6 +32,7 @@ const Customers = () => {
                         <th>Bandwidth / MB</th>
                         <th>Price</th>
                         <th>Connection Date</th>
+                        <th>Update Info</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,11 +48,23 @@ const Customers = () => {
                                 <td>{customer.mb}</td>
                                 <td>{customer.price}</td>
                                 <td>{customer.connection_date}</td>
+                                <td>
+                                    <div>
+                                        {/* The button to open modal */}
+                                        < label htmlFor="customer-update-modal" className="btn" >Update</label >
+                                    </div>
+
+                                </td>
                             </tr>
                         )
                     }
                 </tbody>
             </table>
+            <div>
+                <CustomerUpdateModal closeModal={closeModal}>
+
+                </CustomerUpdateModal>
+            </div>
         </div>
     );
 };

@@ -17,7 +17,7 @@ const BillCollect = () => {
             <table className="table table-compact w-full">
                 <thead>
                     <tr>
-                        <th>SL</th>
+                        <th>SL#</th>
                         <th>IP</th>
                         <th>Money Receipt No.</th>
                         <th>Received Amount</th>
