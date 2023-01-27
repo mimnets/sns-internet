@@ -1,11 +1,30 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-const CustomerUpdateModal = () => {
+const CustomerUpdateModal = ({customerId}) => {
     const { register, handleSubmit, formState: { errors } } = useForm()
+    console.log(customerId)
 
     const handleUpdateCustomer = data => {
-
+        const customer = {
+            name: data.name,
+            ip: data.ip,
+            mobile: data.mobile,
+            address: data.address,
+            mb: data.mb,
+            price: data.price,
+            connection_date: data.connection_date
+        }
+        
+        fetch(`http://localhost:5000/customer${customerId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(customer),
+        })
+        .then(resp => resp.json())
+        .then(result =>{
+            console.log(result)
+        })
     }
 
 

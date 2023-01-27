@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
 import CustomerUpdateModal from '../Modal/CustomerUpdateModal/CustomerUpdateModal';
 
 const Customers = () => {
-    const [updateCustomerModal, setUpdateCustomerModal] = useState(null);
-
-    const closeModal = () => {
-        setUpdateCustomerModal(null);
-    }
+    const [customerId, setCustomerId] = useState();
 
     const { data: customers } = useQuery({
         queryKey: 'customers',
@@ -18,6 +14,11 @@ const Customers = () => {
         },
     })
 
+
+    const handleCustomerId = id =>{
+        console.log(id);
+        setCustomerId(id);
+    }
     return (
         <div className="overflow-x-auto">
             <table className="table w-full">
@@ -51,7 +52,7 @@ const Customers = () => {
                                 <td>
                                     <div>
                                         {/* The button to open modal */}
-                                        < label htmlFor="customer-update-modal" className="btn" >Update</label >
+                                        < label onClick={()=>handleCustomerId(customer._id)} htmlFor="customer-update-modal" className="btn" >Update</label >
                                     </div>
 
                                 </td>
@@ -61,7 +62,7 @@ const Customers = () => {
                 </tbody>
             </table>
             <div>
-                <CustomerUpdateModal closeModal={closeModal}>
+                <CustomerUpdateModal customerId={customerId}>
 
                 </CustomerUpdateModal>
             </div>
