@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useQuery } from 'react-query';
+import { AuthContext } from '../../../Contexts/AuthProvider';
+import Loader from '../../Shared/Loader/Loader';
 import CustomerUpdateModal from '../Modal/CustomerUpdateModal/CustomerUpdateModal';
 
 const Customers = () => {
+    const {loading} = useContext(AuthContext)
+
     const [customerId, setCustomerId] = useState();
+
 
     const { data: customers } = useQuery({
         queryKey: 'customers',
@@ -14,9 +19,14 @@ const Customers = () => {
         },
     })
 
+    if(loading){
+        return <Loader></Loader>
+    }
 
+
+// console.log(customers);
     const handleCustomerId = id =>{
-        console.log(id);
+        // console.log(id);
         setCustomerId(id);
     }
     return (
@@ -62,7 +72,7 @@ const Customers = () => {
                 </tbody>
             </table>
             <div>
-                <CustomerUpdateModal customerId={customerId}>
+                <CustomerUpdateModal customers={customers} customerId={customerId}>
 
                 </CustomerUpdateModal>
             </div>
