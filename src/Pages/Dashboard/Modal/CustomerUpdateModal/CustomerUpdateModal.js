@@ -3,13 +3,15 @@ import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../../Contexts/AuthProvider';
 import Loader from '../../../Shared/Loader/Loader';
 
-const CustomerUpdateModal = ({customers, customerId}) => {
+const CustomerUpdateModal = ({customerInfo}) => {
+    console.log(customerInfo)
     const {loading} = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const [customerUpdateInfo, setCustomerUpdatedInfo] = useState();
-    const customer = customers?.find(customer => customer._id === customerId);
 
-    // console.log(customerUpdateInfo);
+    const [customerUpdateInfo, setCustomerUpdatedInfo] = useState();
+    // const customer = customers?.find(customer => customer._id === customerId);
+
+    console.log(customerUpdateInfo);
     
     if(loading) {
         return <Loader></Loader>
@@ -26,11 +28,14 @@ const CustomerUpdateModal = ({customers, customerId}) => {
             connection_date: data.connection_date
         }
 
-        const customerNewInfo = {...customer, customerUpdates}
-        console.log(customer, customerNewInfo)
-        setCustomerUpdatedInfo(customerNewInfo)
+        let customerNewInfo = {...customerInfo, ...customerUpdates};
+
+        console.log(customerNewInfo)
+        // customerNewInfo = {...customerUpdates};
+
+        setCustomerUpdatedInfo(customerNewInfo);
         
-        fetch(`http://localhost:5000/customers/${customerId}`, {
+        fetch(`http://localhost:5000/customers/${customerInfo._id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(customerUpdateInfo),
@@ -57,40 +62,40 @@ const CustomerUpdateModal = ({customers, customerId}) => {
                                 <label className="label"><span className="label-text">Name</span></label>
                                 <input type="text"
                                     {...register("name")}
-                                    className="input input-bordered w-full max-w-xs"  defaultValue={customer?.name}/>
+                                    className="input input-bordered w-full max-w-xs"  defaultValue={customerInfo?.name}/>
                             </div>
                             <div className="form-control w-full max-w-xs">
                                 <label className="label"><span className="label-text">IP</span></label>
                                 <input type="number"
                                     {...register("ip")}
-                                    className="input input-bordered w-full max-w-xs"   defaultValue={customer?.ip}/>
+                                    className="input input-bordered w-full max-w-xs"   defaultValue={customerInfo?.ip}/>
                             </div>
                             <div className="form-control w-full max-w-xs">
                                 <label className="label"><span className="label-text">Mobile</span></label>
                                 <input type="number"
                                     {...register("mobile")}
-                                    className="input input-bordered w-full max-w-xs"  defaultValue={customer?.mobile} />
+                                    className="input input-bordered w-full max-w-xs"  defaultValue={customerInfo?.mobile} />
                                 {errors.mobile && <p className="text-red-500">{errors.mobile.message}</p>}
                             </div>
                             <div className="form-control w-full max-w-xs">
                                 <label className="label"><span className="label-text">Address</span></label>
                                 <input type="text"
                                     {...register("address")}
-                                    className="input input-bordered w-full max-w-xs"   defaultValue={customer?.address}/>
+                                    className="input input-bordered w-full max-w-xs"   defaultValue={customerInfo?.address}/>
                                 {errors.address && <p className="text-red-500">{errors.address.message}</p>}
                             </div>
                             <div className="form-control w-full max-w-xs">
                                 <label className="label"><span className="label-text">Bandwidth / MB</span></label>
                                 <input type="number"
                                     {...register("mb")}
-                                    className="input input-bordered w-full max-w-xs"   defaultValue={customer?.mb}/>
+                                    className="input input-bordered w-full max-w-xs"   defaultValue={customerInfo?.mb}/>
                                 {errors.mb && <p className="text-red-500">{errors.mb.message}</p>}
                             </div>
                             <div className="form-control w-full max-w-xs">
                                 <label className="label"><span className="label-text">Price</span></label>
                                 <input type="number"
                                     {...register("price")}
-                                    className="input input-bordered w-full max-w-xs"   defaultValue={customer?.price}/>
+                                    className="input input-bordered w-full max-w-xs"   defaultValue={customerInfo?.price}/>
                                 {errors.price && <p className="text-red-500">{errors.price.message}</p>}
                             </div>
                             {/* <div className="form-control w-full max-w-xs">

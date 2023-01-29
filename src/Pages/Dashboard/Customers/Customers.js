@@ -7,7 +7,7 @@ import CustomerUpdateModal from '../Modal/CustomerUpdateModal/CustomerUpdateModa
 const Customers = () => {
     const {loading} = useContext(AuthContext)
 
-    const [customerId, setCustomerId] = useState();
+    const [customerInfo, setCustomerInfo] = useState();
 
 
     const { data: customers } = useQuery({
@@ -25,9 +25,9 @@ const Customers = () => {
 
 
 // console.log(customers);
-    const handleCustomerId = id =>{
+    const handleCustomerId = getSelectedCustomerInfo =>{
         // console.log(id);
-        setCustomerId(id);
+        setCustomerInfo(getSelectedCustomerInfo);
     }
     return (
         <div className="overflow-x-auto">
@@ -62,7 +62,7 @@ const Customers = () => {
                                 <td>
                                     <div>
                                         {/* The button to open modal */}
-                                        < label onClick={()=>handleCustomerId(customer._id)} htmlFor="customer-update-modal" className="btn" >Update</label >
+                                        < label onClick={()=>handleCustomerId(customer)} htmlFor="customer-update-modal" className="btn" >Update</label >
                                     </div>
 
                                 </td>
@@ -72,7 +72,7 @@ const Customers = () => {
                 </tbody>
             </table>
             <div>
-                <CustomerUpdateModal customers={customers} customerId={customerId}>
+                <CustomerUpdateModal customerInfo={customerInfo}>
 
                 </CustomerUpdateModal>
             </div>
